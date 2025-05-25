@@ -101,7 +101,7 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
           </div>
         </div>
         <div 
-          class="text-[15px] leading-5 mt-1"
+          class="text-[15px] leading-5 pt-2"
           style={{ color: "rgb(231, 233, 234)" }}
         >
           {props.quote.text}
@@ -116,8 +116,12 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
       class="rounded-2xl my-4 flex flex-col"
       style={{ 
         "max-height": "calc(100vh - 120px)",
+        "min-height": "300px",
+        "min-width": "250px",
         background: "rgb(22, 24, 28)",
-        border: "1px solid rgb(47, 51, 54)"
+        border: "1px solid rgb(47, 51, 54)",
+        resize: "both",
+        overflow: "hidden"
       }}
     >
       {/* Custom scrollbar styles */}
@@ -141,7 +145,7 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
       {/* Header */}
       <div 
         class="p-4"
-        style={{ "border-bottom": "1px solid rgb(47, 51, 54)" }}
+        style={{ "border-bottom": "1px solid rgb(47, 51, 54)", "flex-shrink": 0 }}
       >
         <h2 
           class="text-xl font-extrabold m-0"
@@ -155,7 +159,7 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
       <Show when={loading() && quotes().length === 0}>
         <div 
           class="p-4 text-[15px]"
-          style={{ color: "rgb(113, 118, 123)" }}
+          style={{ color: "rgb(113, 118, 123)", "flex-shrink": 0 }}
         >
           Loading quote tweets...
         </div>
@@ -165,7 +169,7 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
       <Show when={error() && quotes().length === 0}>
         <div 
           class="p-4 text-[15px]"
-          style={{ color: "rgb(113, 118, 123)" }}
+          style={{ color: "rgb(113, 118, 123)", "flex-shrink": 0 }}
         >
           {error()}
         </div>
@@ -185,7 +189,7 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
         </div>
 
         <Show when={nextToken() && !loadingMore()}>
-          <div style={{ "border-top": "1px solid rgb(47, 51, 54)" }}>
+          <div style={{ "border-top": "1px solid rgb(47, 51, 54)", "flex-shrink": 0 }}>
             <a 
               href="#"
               class="block p-4 no-underline text-[15px] text-center font-medium transition-colors"
@@ -213,7 +217,7 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
         <Show when={loadingMore()}>
           <div 
             class="p-4 text-[15px] text-center"
-            style={{ color: "rgb(113, 118, 123)" }}
+            style={{ color: "rgb(113, 118, 123)", "flex-shrink": 0 }}
           >
             Loading more...
           </div>
@@ -221,7 +225,7 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
         <Show when={!loading() && !nextToken() && quotes().length === 0}>
            <div 
               class="p-4 text-[15px]"
-              style={{ color: "rgb(113, 118, 123)" }}
+              style={{ color: "rgb(113, 118, 123)", "flex-shrink": 0 }}
             >
               No quote tweets found for this post.
             </div>

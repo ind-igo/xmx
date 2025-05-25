@@ -72,14 +72,6 @@ const fetchQuoteTweets = async (postId: string, nextToken?: string): Promise<Quo
       quoteTweetsUrl.searchParams.set("pagination_token", nextToken);
     }
     
-    // console.log("BEARER_TOKEN", import.meta.env.VITE_BEARER_TOKEN); // Keep for your debugging if needed
-
-    // --- Simulate API failure for testing mock data --- 
-    // if (import.meta.env.DEV && postId !== "force_success") { // Uncomment to force mock data
-    //   throw new Error("Simulated API failure for testing mock data.");
-    // }
-    // --- End of simulation code ---
-
     const response = await fetch(quoteTweetsUrl.toString(), {
       method: 'GET',
       headers: {
@@ -89,7 +81,8 @@ const fetchQuoteTweets = async (postId: string, nextToken?: string): Promise<Quo
       cache: 'default',
     });
 
-    // console.log(response); // Keep for your debugging if needed
+    console.log("Response:", response); // TODO
+
     if (!response.ok) {
       const errorBody = await response.text();
       console.error('Twitter API Error Response:', errorBody);
