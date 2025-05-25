@@ -1,6 +1,7 @@
 import QuoteTweets from '~/components/QuoteTweets';
 
 const sidebarAnchor = '[data-testid="sidebarColumn"]';
+// const trendingAnchor = 'div[aria-label="Trending"]';
 const xPostUrlPattern = /.*x\.com\/([a-zA-Z0-9_]+)\/status\/(\d+)$/;
 
 const parseXUrl = (url: string) => {
@@ -28,16 +29,20 @@ export default defineContentScript({
       currentPostId = postId;
       console.log("Initializing Quote Tweets for post:", postId);
 
-      // Create UI for the sidebar
+      // Create UI for the trending section
       uiInstance = createIntegratedUi(ctx, {
         position: "inline",
         anchor: sidebarAnchor,
-        append: "first",
+        append: "replace",
         onMount: (container) => {
-          // Style the container to blend with X's UI
+          // Style the container to make it sticky and blend with X's UI
           container.style.cssText = `
             display: block;
             width: 100%;
+            position: sticky;
+            top: 20px;
+            height: calc(100vh - 40px);
+            overflow: hidden;
           `;
           
           // Create a wrapper div for better positioning
@@ -45,6 +50,9 @@ export default defineContentScript({
           wrapper.style.cssText = `
             position: relative;
             z-index: 1;
+            height: 100%;
+            overflow: hidden;
+            padding-left: 15px;
           `;
           container.appendChild(wrapper);
 

@@ -94,37 +94,66 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
   });
 
   const QuoteTweetItem = (props: { quote: QuoteTweet }) => (
-    <div class="p-3 px-4 border-t border-[#2f3336] relative">
+    <div 
+      class="p-3 px-4 relative"
+      style={{ 
+        "border-top": "1px solid rgb(47, 51, 54)",
+        "transition": "background-color 0.2s"
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.03)"}
+      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+    >
       <div class="flex items-center mb-1">
         <img 
           src={props.quote.avatar} 
           alt={props.quote.displayName} 
           class="w-12 h-12 rounded-full mr-3"
         />
-        <div class="flex flex-col">
+        <div class="flex flex-col flex-1">
           <div class="flex items-center">
-            <span class="font-bold text-[15px] mr-1">{props.quote.displayName}</span>
+            <span 
+              class="font-bold text-[15px] mr-1"
+              style={{ color: "rgb(231, 233, 234)" }}
+            >
+              {props.quote.displayName}
+            </span>
             <Show when={props.quote.verified}>
-              <span class="inline-flex items-center justify-center bg-[#1d9bf0] text-white rounded-full w-4 h-4 text-xs">
-                ✓
-              </span>
+              <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" aria-label="Verified account">
+                <g>
+                  <path 
+                    fill="rgb(29, 155, 240)" 
+                    d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.27 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"
+                  />
+                </g>
+              </svg>
             </Show>
           </div>
-          <span class="text-[#71767b] text-sm">@{props.quote.username}</span>
+          <span 
+            class="text-sm"
+            style={{ color: "rgb(113, 118, 123)" }}
+          >
+            @{props.quote.username}
+          </span>
         </div>
       </div>
-      <button class="absolute top-3 right-4 bg-white text-black border-none rounded-full py-1.5 px-4 font-bold text-sm cursor-pointer hover:bg-gray-200 transition-colors">
-        Follow
-      </button>
-      <div class="text-[15px] leading-5 mt-1">{props.quote.text}</div>
+      <div 
+        class="text-[15px] leading-5 mt-1"
+        style={{ color: "rgb(231, 233, 234)" }}
+      >
+        {props.quote.text}
+      </div>
     </div>
   );
 
   return (
     <div 
       id="quote-tweets-container" 
-      class="bg-black rounded-2xl my-4 text-white border border-[#2f3336] flex flex-col"
-      style={{ "max-height": "500px" }}
+      class="rounded-2xl my-4 flex flex-col"
+      style={{ 
+        "max-height": "calc(100vh - 120px)",
+        background: "rgb(22, 24, 28)",
+        border: "1px solid rgb(47, 51, 54)"
+      }}
     >
       {/* Custom scrollbar styles */}
       <style>{`
@@ -132,33 +161,47 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
           width: 4px;
         }
         #quote-tweets-container .overflow-y-auto::-webkit-scrollbar-track {
-          background: #000;
+          background: rgb(22, 24, 28);
         }
         #quote-tweets-container .overflow-y-auto::-webkit-scrollbar-thumb {
-          background-color: #333;
+          background-color: rgb(47, 51, 54);
           border-radius: 20px;
           border: none;
         }
         #quote-tweets-container .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-          background-color: #444;
+          background-color: rgb(113, 118, 123);
         }
       `}</style>
 
       {/* Header */}
-      <h2 class="text-xl font-extrabold py-3 px-4 m-0 text-white">
-        Quote Tweets
-      </h2>
+      <div 
+        class="p-4"
+        style={{ "border-bottom": "1px solid rgb(47, 51, 54)" }}
+      >
+        <h2 
+          class="text-xl font-extrabold m-0"
+          style={{ color: "rgb(231, 233, 234)" }}
+        >
+          Quote Tweets
+        </h2>
+      </div>
 
       {/* Loading State */}
       <Show when={loading()}>
-        <div class="p-4 text-[#71767b] text-[15px]">
+        <div 
+          class="p-4 text-[15px]"
+          style={{ color: "rgb(113, 118, 123)" }}
+        >
           Loading quote tweets...
         </div>
       </Show>
 
       {/* Error State */}
       <Show when={error()}>
-        <div class="p-4 text-[#71767b] text-[15px]">
+        <div 
+          class="p-4 text-[15px]"
+          style={{ color: "rgb(113, 118, 123)" }}
+        >
           {error()}
         </div>
       </Show>
@@ -168,13 +211,19 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
         <Show 
           when={quotes().length > 0}
           fallback={
-            <div class="p-4 text-[#71767b] text-[15px]">
+            <div 
+              class="p-4 text-[15px]"
+              style={{ color: "rgb(113, 118, 123)" }}
+            >
               No quote tweets found
             </div>
           }
         >
           {/* Scrollable content area */}
-          <div class="flex-1 overflow-y-auto" style={{ "scrollbar-width": "thin", "scrollbar-color": "#333 #000" }}>
+          <div 
+            class="flex-1 overflow-y-auto" 
+            style={{ "scrollbar-width": "thin", "scrollbar-color": "rgb(47, 51, 54) rgb(22, 24, 28)" }}
+          >
             <div class="flex flex-col">
               <For each={quotes()}>
                 {(quote) => <QuoteTweetItem quote={quote} />}
@@ -183,16 +232,30 @@ const QuoteTweets = (props: QuoteTweetsProps) => {
           </div>
 
           {/* Show more button */}
-          <a 
-            href="#" 
-            class="block p-4 text-[#1d9bf0] no-underline text-[15px] border-t border-[#2f3336] hover:bg-[rgba(255,255,255,0.03)] mt-auto transition-colors"
-            onClick={(e) => {
-              e.preventDefault();
-              loadMoreQuotes();
-            }}
-          >
-            Show more
-          </a>
+          <div style={{ "border-top": "1px solid rgb(47, 51, 54)" }}>
+            <a 
+              href="#" 
+              class="block p-4 no-underline text-[15px] text-center font-medium transition-colors"
+              style={{ 
+                color: "rgb(29, 155, 240)",
+                "text-decoration": "none"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.03)";
+                e.currentTarget.style.color = "rgb(26, 140, 216)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "rgb(29, 155, 240)";
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                loadMoreQuotes();
+              }}
+            >
+              Show more
+            </a>
+          </div>
         </Show>
       </Show>
     </div>
